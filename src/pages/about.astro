@@ -1,0 +1,253 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About Us - PackCo" description="Learn about PackCo's mission to create premium backpacks for adventurers worldwide">
+  <section class="page-header">
+    <div class="container">
+      <h1>About PackCo</h1>
+      <p>Crafting premium backpacks since 2010</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="about-content">
+        <div class="story">
+          <h2>Our Story</h2>
+          <p>
+            PackCo was founded in 2010 by a group of outdoor enthusiasts who were frustrated with the lack of
+            quality, durable backpacks on the market. We set out to create products that could withstand the
+            rigors of mountain trails, international travel, and daily commutes.
+          </p>
+          <p>
+            Over the past decade, we've grown from a small workshop to a global brand trusted by adventurers,
+            travelers, and professionals worldwide. Our commitment to quality, innovation, and sustainability
+            remains at the core of everything we do.
+          </p>
+        </div>
+
+        <div class="mission">
+          <h2>Our Mission</h2>
+          <p>
+            To design and manufacture the world's best backpacks that empower people to explore, travel, and
+            pursue their passions with confidence. We believe that the right gear shouldn't just carry your
+            belongings—it should inspire your next adventure.
+          </p>
+        </div>
+      </div>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">🏔️</div>
+          <h3>Adventure First</h3>
+          <p>Every product is tested in real-world conditions by our team of outdoor enthusiasts and professional guides.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">♻️</div>
+          <h3>Sustainability</h3>
+          <p>We're committed to reducing our environmental impact through sustainable materials and ethical manufacturing.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">🔧</div>
+          <h3>Quality Craftsmanship</h3>
+          <p>Each backpack is meticulously designed and built to last, backed by our lifetime warranty.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">💡</div>
+          <h3>Innovation</h3>
+          <p>We continuously push the boundaries of backpack design, incorporating the latest materials and technologies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <div class="container">
+      <h2 class="section-title">Our Team</h2>
+      <p class="section-subtitle">Meet the people behind PackCo</p>
+
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="member-photo">
+            <div class="photo-placeholder">JS</div>
+          </div>
+          <h3>Jane Smith</h3>
+          <p class="role">Founder & CEO</p>
+          <p>Avid mountaineer with 20+ years of outdoor experience</p>
+        </div>
+
+        <div class="team-member">
+          <div class="member-photo">
+            <div class="photo-placeholder">MJ</div>
+          </div>
+          <h3>Michael Johnson</h3>
+          <p class="role">Head of Design</p>
+          <p>Industrial designer passionate about functional innovation</p>
+        </div>
+
+        <div class="team-member">
+          <div class="member-photo">
+            <div class="photo-placeholder">SL</div>
+          </div>
+          <h3>Sarah Lee</h3>
+          <p class="role">Sustainability Director</p>
+          <p>Environmental scientist committed to eco-friendly practices</p>
+        </div>
+
+        <div class="team-member">
+          <div class="member-photo">
+            <div class="photo-placeholder">DW</div>
+          </div>
+          <h3>David Wong</h3>
+          <p class="role">Product Manager</p>
+          <p>World traveler with insights from 50+ countries</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .page-header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .page-header p {
+    font-size: 1.25rem;
+    opacity: 0.95;
+  }
+
+  .about-content {
+    max-width: 900px;
+    margin: 0 auto 4rem;
+  }
+
+  .story, .mission {
+    margin-bottom: 3rem;
+  }
+
+  .story h2, .mission h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+  }
+
+  .story p, .mission p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .value-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .value-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .value-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .value-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+  }
+
+  .value-card p {
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  .team-section {
+    background: var(--background-light);
+    padding: 4rem 0;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .team-member {
+    text-align: center;
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .member-photo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-placeholder {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .team-member h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
+
+  .role {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .team-member p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .values-grid, .team-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

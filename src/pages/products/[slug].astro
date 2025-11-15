@@ -1,0 +1,258 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map(product => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+const { Content } = await product.render();
+---
+
+<Layout title={`${product.data.title} - PackCo`} description={product.data.description}>
+  <article class="product-detail">
+    <div class="container">
+      <div class="product-layout">
+        <div class="product-image-section">
+          <div class="main-image">
+            <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M200 80L120 140V320H280V140L200 80Z" fill="currentColor"/>
+              <path d="M160 180H240V320H160V180Z" fill="white"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="product-info">
+          <div class="breadcrumb">
+            <a href="/products">Products</a> / <span>{product.data.title}</span>
+          </div>
+
+          <h1>{product.data.title}</h1>
+          <p class="product-description">{product.data.description}</p>
+
+          <div class="price-section">
+            <span class="price">${product.data.price.toFixed(2)}</span>
+            <span class="capacity">{product.data.capacity}</span>
+          </div>
+
+          <div class="features">
+            <h3>Key Features</h3>
+            <ul>
+              {product.data.features.map(feature => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="colors">
+            <h3>Available Colors</h3>
+            <div class="color-list">
+              {product.data.colors.map(color => (
+                <span class="color-badge">{color}</span>
+              ))}
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-large">Add to Cart</button>
+            <button class="btn btn-secondary btn-large">Add to Wishlist</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-content">
+        <Content />
+      </div>
+
+      <div class="back-link">
+        <a href="/products" class="btn btn-secondary">← Back to Products</a>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .product-detail {
+    padding: 2rem 0 4rem;
+  }
+
+  .breadcrumb {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .breadcrumb a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  .product-image-section {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+  }
+
+  .main-image {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 1rem;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    aspect-ratio: 1;
+  }
+
+  .product-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .product-description {
+    font-size: 1.125rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .price-section {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--background-light);
+  }
+
+  .price {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+
+  .capacity {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    font-weight: 600;
+  }
+
+  .features, .colors {
+    margin-bottom: 2rem;
+  }
+
+  .features h3, .colors h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .features ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .features li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--background-light);
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+  }
+
+  .features li::before {
+    content: "✓";
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+  }
+
+  .color-list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .color-badge {
+    padding: 0.5rem 1rem;
+    background: var(--background-light);
+    border: 2px solid var(--primary-color);
+    color: var(--text-color);
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    flex: 1;
+  }
+
+  .product-content {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 2rem;
+    background: var(--background-light);
+    border-radius: 1rem;
+  }
+
+  .product-content :global(h2) {
+    font-size: 1.75rem;
+    margin: 2rem 0 1rem;
+    color: var(--text-color);
+  }
+
+  .product-content :global(p) {
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+
+  .back-link {
+    text-align: center;
+  }
+
+  @media (max-width: 968px) {
+    .product-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .product-image-section {
+      position: static;
+    }
+
+    .product-info h1 {
+      font-size: 2rem;
+    }
+
+    .actions {
+      flex-direction: column;
+    }
+  }
+</style>

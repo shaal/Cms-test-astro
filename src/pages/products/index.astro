@@ -1,0 +1,122 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+
+const allProducts = await getCollection('products');
+
+// Sort products by featured first, then by title
+const sortedProducts = allProducts.sort((a, b) => {
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+// Get unique categories
+const categories = [...new Set(allProducts.map(p => p.data.category))];
+---
+
+<Layout title="Products - PackCo" description="Browse our complete collection of premium backpacks">
+  <section class="page-header">
+    <div class="container">
+      <h1>Our Products</h1>
+      <p>Explore our complete collection of premium backpacks</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="filters">
+        <h3>Categories</h3>
+        <div class="category-badges">
+          {categories.map(category => (
+            <span class="category-badge">{category}</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="products-grid">
+        {sortedProducts.map(product => (
+          <ProductCard
+            title={product.data.title}
+            description={product.data.description}
+            price={product.data.price}
+            image={product.data.image}
+            slug={product.slug}
+            category={product.data.category}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .page-header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .page-header p {
+    font-size: 1.25rem;
+    opacity: 0.95;
+  }
+
+  .filters {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--background-light);
+    border-radius: 1rem;
+  }
+
+  .filters h3 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .category-badges {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .category-badge {
+    padding: 0.5rem 1rem;
+    background: white;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 2rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .category-badge:hover {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

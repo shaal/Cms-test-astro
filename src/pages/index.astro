@@ -1,0 +1,124 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ProductCard from '../components/ProductCard.astro';
+
+const allProducts = await getCollection('products');
+const featuredProducts = allProducts.filter(product => product.data.featured);
+---
+
+<Layout title="PackCo - Premium Backpacks for Every Adventure">
+  <Hero
+    title="Adventure Awaits"
+    subtitle="Discover premium backpacks designed for explorers, travelers, and everyday adventurers"
+    ctaText="Explore Collection"
+    ctaLink="/products"
+  />
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Featured Products</h2>
+      <p class="section-subtitle">Our most popular backpacks trusted by adventurers worldwide</p>
+
+      <div class="products-grid">
+        {featuredProducts.map(product => (
+          <ProductCard
+            title={product.data.title}
+            description={product.data.description}
+            price={product.data.price}
+            image={product.data.image}
+            slug={product.slug}
+            category={product.data.category}
+          />
+        ))}
+      </div>
+
+      <div class="cta-section">
+        <a href="/products" class="btn">View All Products</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <div class="container">
+      <h2 class="section-title">Why Choose PackCo?</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">🎒</div>
+          <h3>Premium Quality</h3>
+          <p>Crafted with durable materials built to last through all your adventures</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🌍</div>
+          <h3>Adventure Ready</h3>
+          <p>Designed for hikers, travelers, and explorers who demand the best</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">💼</div>
+          <h3>Versatile Design</h3>
+          <p>From mountain peaks to city streets, our packs adapt to your lifestyle</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">✅</div>
+          <h3>Lifetime Warranty</h3>
+          <p>We stand behind our products with comprehensive warranty coverage</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .cta-section {
+    text-align: center;
+  }
+
+  .features-section {
+    background: var(--background-light);
+    padding: 4rem 0;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .feature {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
+
+  .feature p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 768px) {
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
